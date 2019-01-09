@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 let browser = null;
 let page = null;
 
+// constants
 const BASE_URL = 'https://amazon.com';
 
 const amazon = {
@@ -21,11 +22,27 @@ const amazon = {
         console.log('Initialization completed...');
 
     },
-            end: async () => {
-                console.log('Stopping the scraper...');
-        
-                await browser.close();
+
+    getProductDetails: async (link) => {
+        console.log(`Going o the Product Page.. (${link})`);
+
+        await page.goto(link, { waitUntil: 'networkidle2'});
+
+        let details = await page.evaluate(() => {
+            let title = document.querySelector('#productTitle').innerText;
+
+            return {
+                title,
             }
+        });
+        return details;
+    },
+
+    end: async () => {
+        console.log('Stopping the scraper...');
+
+        await browser.close();
+    }
 
 };
 
