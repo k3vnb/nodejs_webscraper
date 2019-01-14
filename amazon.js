@@ -30,9 +30,13 @@ const amazon = {
 
         let details = await page.evaluate(() => {
             let title = document.querySelector('#productTitle').innerText;
+            let manufacturer = document.querySelector('#bylineInfo').innerText;
+            let totalRatings = document.querySelector('#acrCustomerReviewText').innerText;
 
             return {
                 title,
+                manufacturer,
+                totalRatings
             }
         });
         return details;
