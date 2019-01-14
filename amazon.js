@@ -16,6 +16,9 @@ const amazon = {
         })
 
         page = await browser.newPage();
+        page.on('console', message => {
+            console.log(`This is a message from the browser: ${message.text()}`);
+        })
 
         await page.goto(BASE_URL, { waitUntil: 'networkidle2' });
         
@@ -33,6 +36,8 @@ const amazon = {
             let manufacturer = document.querySelector('#bylineInfo').innerText;
             let totalRatings = document.querySelector('#acrCustomerReviewText').innerText;
 
+            console.log('test');
+            console.log('another test message');
             return {
                 title,
                 manufacturer,
