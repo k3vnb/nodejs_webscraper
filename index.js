@@ -4,7 +4,7 @@ const request = require('request-promise');
 const cheerio = require('cheerio');
 
 (async () => {
-    const USERNAME = 'k3vnb';
+    const USERNAME = 'k3vnb33';
     const BASE_URL = `https://instagram.com/${USERNAME}`;
 
     let response = await request(BASE_URL);
@@ -14,6 +14,9 @@ const cheerio = require('cheerio');
     let script = $('script[type="text/javascript"]').eq(3).html();
 
     let script_regex = /window._sharedData = (.+);/g.exec(script);
-    console.log(script_regex);
+    let { entry_data: { ProfilePage: { [0] : { graphql : { user } } } } } = JSON.parse(script_regex[1]);
+
+    // object.entry_data.ProfilePage[0].graphql.user
+    console.log(user);
     debugger;
 })()
