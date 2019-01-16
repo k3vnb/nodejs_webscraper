@@ -1,13 +1,19 @@
-const amazon = require('./amazon');
+//instagram scraper
+
+const request = require('request-promise');
+const cheerio = require('cheerio');
 
 (async () => {
+    const USERNAME = 'k3vnb';
+    const BASE_URL = `https://instagram.com/${USERNAME}`;
 
-    await amazon.initialize();
+    let response = await request(BASE_URL);
+    let $ = cheerio.load(response);
 
-    let details = await amazon.getProductDetails('https://www.amazon.com/Apple-Retina-display-3-4GHz-quad-core/dp/B071G2S8LZ/ref=sr_1_3?s=pc&ie=UTF8&qid=1547077462&sr=1-3&keywords=imac+27');
+// .eq takes which child, in this case its child 3 (0-indexed so it is the fourth script tag w/ text/javascript type) that contains our json data
+    let script = $('script[type="text/javascript"]').eq(3).html();
 
-    console.log(details);
+    let script_regex = /window._sharedData = (.+);/g.exec(script);
+    console.log(script_regex);
     debugger;
-
-
-})();
+})()
