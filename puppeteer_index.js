@@ -80,12 +80,15 @@
 // })();
 
 
-/* Using a Proxy Server w/ puppeteer */
+/* Using a Proxy Server w/ puppeteer -- get a public proxy server address from a list*/
 
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ 
+        headless: false,
+        args: ['--proxy-server=119.28.118.116:1080']
+    });
     const page = await browser.newPage();
   
     await page.goto('https://httpbin.org/ip')
