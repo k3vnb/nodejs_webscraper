@@ -1,16 +1,13 @@
+
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({
-      headless: true
-  });
-  const page = await browser.newPage();
-  await page.goto('https://learnscraping.com/');
-  await page.pdf({
-      path: './page.pdf',
-      format: 'A4'
-  })
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
+  
+    await page.goto('https://httpbin.org/ip')
 
-  await browser.close();
+    debugger;
+    // await browser.close();
 
 })();
